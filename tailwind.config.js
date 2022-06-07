@@ -1,8 +1,11 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     fontFamily: {
-      "spartan" : "League Spartan', sans-serif"
+      spartan : ['League Spartan', "sans-serif"
+    ]
     },
     screens: {
       'sm': '640px',
@@ -21,7 +24,14 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     
-    extend: {},
+    extend: {
+      colors: {
+        "custom-ligth-blue": '#252945',
+        "custom-dark-purple": "#7C5DFA",
+        "custom-ligth-100": "#F8F8FB",
+        "custom-ligth-200": "#DFE3FA"
+      }
+    },
   },
   plugins: [],
 }
