@@ -20,17 +20,29 @@ module.exports = {
       'xl': '1280px',
       // => @media (min-width: 1280px) { ... }
 
-      '2xl': '1536px',
+      '2xl': '1440px',
       // => @media (min-width: 1536px) { ... }
+
+      "3xl": "1800px"
+      // => @media (min-width: 22506px) { ... }
+
+
     },
     
     extend: {
       colors: {
-        "custom-ligth-blue": '#252945',
+        "custom-dark-blue-100": '#252945',
+        "custom-dark-blue-200" : "#1E2139",
         "custom-dark-purple": "#7C5DFA",
         "custom-ligth-100": "#F8F8FB",
-        "custom-ligth-200": "#DFE3FA"
+        "custom-ligth-200": "#DFE3FA",
+        "custom-ligth-red-100" : "#EC5757"
+      },
+
+      boxShadow: {
+        '3xl': '0px -15px 5px 0px rgba(0, 0, 0, 0.2)',
       }
+
     },
   },
   plugins: [],
