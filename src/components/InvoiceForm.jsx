@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import _ from 'lodash'
 import Button from './common/Button'
 import Input from './common/Input';
 import plusSvg from '../assets/icon-plus.svg'

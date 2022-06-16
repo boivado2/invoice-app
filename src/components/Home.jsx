@@ -35,7 +35,10 @@ function Home() {
           </div>
           <div className='flex gap-2'>
             <DropDown title="Filter" bTitle="Filter by Status"/>
-            <Button title="New" bTitle="New Invoice"styles="bg-custom-dark-purple rounded-full" icon={plusSvg} onClick={handleEnableInvoiceForm} />
+            <Button  styles="bg-custom-dark-purple rounded-full" icon={plusSvg} iconAlt="plus icon for showing form" onClick={handleEnableInvoiceForm}>
+              <span className='hidden sm:block'>New Invoice</span>
+              <span className=' sm:hidden'>New</span>
+            </Button>
           </div>
         </header>
 
