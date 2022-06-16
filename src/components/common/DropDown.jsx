@@ -60,15 +60,11 @@ function DropDown({ title, bTitle }) {
       <div className="py-1" role="none">
           {menuList.map(listItem => (
               <div  key={listItem.title} className='flex px-2 cursor-pointer items-center' id='drop-down-item'>
-              {/* <div className='w-4 h-4 bg-custom-ligth-200'>
-                { selectedDropItem.title === listItem.title ? <img  className='w-4 h-4 text-white bg-custom-dark-purple' src={checkSvg} alt="" /> :null}
-              </div> */}
               <div className={`w-4 h-4 bg-custom-ligth-200 z-10 relative`}>
                 <input onChange={handleChange} className=' z-0 invisible outline-none border-0 w-4 h-4' id={listItem.title} value={listItem.title} type="checkbox" name={listItem.title} />
                 { selectedDropItems.includes(listItem.title)? <img  className='w-4 h-4 text-white bg-custom-dark-purple absolute top-0 left-0' src={checkSvg} alt="" /> :null}
               </div>
               <label htmlFor={listItem.title} className="text-gray-700 flex justify-between px-4 py-2 text-sm cursor-pointer" role="menuitem"  id="menu-item-0">{listItem.title}</label>
-
               </div>
           )
           )}
