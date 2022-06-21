@@ -1,8 +1,22 @@
 
 #drop-down-item:hover div {
   outline: 0.6px solid #7C5DFA;
+ 
 }
 
 .overlay {
   background: rgba(0, 0, 0, 0.5);
+}
+
+
+#invoice_paid::after {
+  background-color: rgb(146, 207, 146);
+}
+
+#invoice_pending::after {
+  background-color:rgb(240, 202, 132) ;
+}
+
+#invoice_draft::after {
+  background-color: #a6afe4;
 }

@@ -2,6 +2,8 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+
+  darkMode : "class",
   theme: {
     fontFamily: {
       spartan : ['League Spartan', "sans-serif"
@@ -32,11 +34,20 @@ module.exports = {
     extend: {
       colors: {
         "custom-dark-blue-100": '#252945',
-        "custom-dark-blue-200" : "#1E2139",
+        "custom-dark-blue-200": "#1E2139",
+        "custom-dark-blue-300": "#141625",
+        "custom-dark-blue-400": "#0C0E16",
         "custom-dark-purple": "#7C5DFA",
         "custom-ligth-100": "#F8F8FB",
         "custom-ligth-200": "#DFE3FA",
+        "custom-ligth-300": "#F2F2F2",
+        "custom-dark-gray-100": "#888EB0",
+       "custom-dark-gray-200": "#979797",
         "custom-ligth-red-100" : "#EC5757"
+      },
+      
+      height: {
+        "custom-screen-1": "calc(100vh - 80px)",
       },
 
       boxShadow: {

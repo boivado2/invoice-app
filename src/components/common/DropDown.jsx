@@ -39,14 +39,14 @@ function DropDown({ title, bTitle }) {
     <div className="inline-flex justify-center items-center w-full  px-2 py-1 text-sm font-medium " id="menu-button">
 
       {!dropDownList ?
-          <div className=' cursor-pointer text-md'><span onClick={() => OnShowMenu()} >
+          <div className=' cursor-pointer text-md text-custom-dark-blue-400 dark:text-custom-ligth-100'><span onClick={() => OnShowMenu()} >
             <span className=' sm:hidden'>{title}</span>
             <span className=' hidden sm:inline-block'>{ bTitle}</span>
 
             <img className='inline-block ml-4' src={arrowDownSvg} alt="" /> </span>
         </div>
         :
-          <div className=' cursor-pointer text-md'><span onClick={() => onHideMenu()} >
+          <div className=' cursor-pointer text-md text-custom-dark-blue-400 dark:text-custom-ligth-100'><span onClick={() => onHideMenu()} >
             <span className=' sm:hidden'>{title}</span>
             <span className=' hidden sm:inline-block'>{ bTitle}</span>
             <img className='inline-block ml-4' src={arrowUpSvg} alt="" /> </span>
@@ -56,15 +56,15 @@ function DropDown({ title, bTitle }) {
       
     </div>
   
-    <div className={`origin-top-right absolute left-[-20px]  mt-5 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${!dropDownList ? 'hidden' : 'block'}`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+    <div className={`origin-top-right absolute left-[-20px]  mt-5 w-36 rounded-md shadow-lg bg-white dark:bg-custom-dark-blue-200 ring-1 ring-black ring-opacity-5 focus:outline-none ${!dropDownList ? 'hidden' : 'block'}`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
       <div className="py-1" role="none">
           {menuList.map(listItem => (
               <div  key={listItem.title} className='flex px-2 cursor-pointer items-center' id='drop-down-item'>
-              <div className={`w-4 h-4 bg-custom-ligth-200 z-10 relative`}>
+              <div className={`w-4 h-4 dark:bg-custom-dark-blue-300 bg-custom-ligth-200 z-10 relative`}>
                 <input onChange={handleChange} className=' z-0 invisible outline-none border-0 w-4 h-4' id={listItem.title} value={listItem.title} type="checkbox" name={listItem.title} />
                 { selectedDropItems.includes(listItem.title)? <img  className='w-4 h-4 text-white bg-custom-dark-purple absolute top-0 left-0' src={checkSvg} alt="" /> :null}
               </div>
-              <label htmlFor={listItem.title} className="text-gray-700 flex justify-between px-4 py-2 text-sm cursor-pointer" role="menuitem"  id="menu-item-0">{listItem.title}</label>
+              <label htmlFor={listItem.title} className=" text-custom-dark-blue-400 flex justify-between px-4 py-2 text-base cursor-pointer  dark:text-custom-ligth-100" role="menuitem"  id="menu-item-0">{listItem.title}</label>
               </div>
           )
           )}

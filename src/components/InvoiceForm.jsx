@@ -111,9 +111,8 @@ function InvoiceForm() {
   
 
   return (
-    <section className={` ${invoiceForm ? ' visible' : "invisible"} absolute top-20 lg:top-0 lg:left-28 z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
+    <section className={` ${invoiceForm ? ' visible' : "invisible"} absolute top-16 lg:top-0 lg:left-24 z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
       <div className=' h-full  pb-8'>
-        
         <form onSubmit={handleSubmit} className='py-6 pb-7 h-full overflow-auto '>
           
         <fieldset className='grid grid-cols-2 gap-3 px-8'>
@@ -212,13 +211,21 @@ function InvoiceForm() {
           
         <aside className=' lg:absolute bottom-0 left-0 w-full   flex gap-3 justify-around  bg-white py-7 h-24'>
             <div className=' self-center'>
-            <Button title="Discard" bTitle="Discard" styles=" rounded-full bg-custom-ligth-200 text-sm" onClick={handleDisableInvoiceForm} />
+              <Button type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" onClick={handleDisableInvoiceForm} >
+                <span>Discard</span>
+            </Button>
           </div>
             <div className=' flex gap-3'>
-            <Button title="Save & send" bTitle="Save & Send" styles="bg-custom-dark-purple rounded-full" />
-              <Button title="Save as Draft" bTitle="Save as Draft" styles="bg-custom-dark-blue-200 rounded-full" />
-              <button type="submit">Submit</button>
-         </div>
+              <Button  styles="bg-custom-dark-blue-200 rounded-full" >
+                <span className=''>Save as Draf</span>
+              </Button>
+
+              <Button styles="bg-custom-dark-purple rounded-full" >
+                 <span className=''>Save & Send</span>
+              </Button>  
+          
+            </div>
+            
           </aside>
         </form> 
         
