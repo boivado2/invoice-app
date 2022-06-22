@@ -27,7 +27,7 @@ function App() {
   }, [theme])
 
   return (
-    <div className={` ${invoiceForm ? 'fixed ': ''} flex flex-col lg:flex-row dark:bg-custom-dark-blue-300 bg-custom-ligth-300 w-full h-full min-h-screen font-spartan ${count <= 5 ? ' overflow-hidden relative': ""}`} >
+    <div className={` ${invoiceForm ? 'fixed ': ''} flex flex-col lg:flex-row dark:bg-custom-dark-blue-300 bg-custom-ligth-300 w-full h-full min-h-screen font-spartan ${count <= 4 ? ' overflow-hidden relative': ""}`} >
       <Navbar/>
       <Router>
         <Routes>

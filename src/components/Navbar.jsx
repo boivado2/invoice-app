@@ -22,7 +22,7 @@ function Navbar() {
 
 
   return (
-    <nav className={` ${invoiceForm ? 'w-full sticky lg:w-28' : "lg:w-28 sticky"} bg-custom-dark-blue-200  h-20 lg:h-screen  flex lg:flex-col justify-between lg:rounded-tr-xl lg:rounded-br-xl  left-0 top-0 z-50`
+    <nav className={` ${invoiceForm ? 'w-full absolute lg:sticky lg:w-28' : "lg:w-28 sticky"} bg-custom-dark-blue-200  h-20 lg:h-screen  flex lg:flex-col justify-between lg:rounded-tr-xl lg:rounded-br-xl  left-0 top-0 z-50`
 } >
       <div className='h-full lg:h-24 lg:w-full w-20 bg-custom-dark-purple rounded-br-2xl rounded-tr-2xl flex  lg:flex-col items-center justify-center'>
       <img className=' w-6 lg:w-14 lg:h-14 h-6' src={Logo} alt="" />

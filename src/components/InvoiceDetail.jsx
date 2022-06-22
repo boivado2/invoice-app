@@ -1,17 +1,21 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Button from './common/Button'
 
 
 
 function InvoiceDetail() {
-  return (
-    <section className=' h-custom-screen-1 lg:h-screen w-full  '>
-      <article className='h-full container w-full mx-auto flex flex-col py-8 justify-between items-center px-8'>
+  const invoice = useSelector(state => state.invoices.invoice)
+  console.log(invoice)
 
-        <header className='flex w-full  flex-row items-center bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-16 py-8'>
+  return (
+    <section className=' h-full  w-full'>
+      <article className='h-full container w-full mx-auto flex flex-col py-8 items-center px-4 sm:px-10 gap-6'>
+
+        <header className='flex w-full  flex-row items-center bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-10 py-8'>
           <aside className='flex flex-row flex-grow justify-between sm:justify-start gap-5 '>
             <h4 className=' text-custom-dark-blue-100 dark:text-custom-ligth-100 '>status</h4>
-            <div>Pending</div>
+            <div>{ invoice?.status}</div>
           </aside>
 
           <aside className='flex-row flex-grow gap-5  items-center justify-end hidden sm:flex'>
@@ -28,9 +32,84 @@ function InvoiceDetail() {
           </aside>
         </header>
 
-        <aside></aside>
+        <aside className='flex flex-col h-full w-full bg-custom-ligth-100 dark:bg-custom-dark-blue-100 px-4 sm:px-10 py-8 gap-5'>
+          <div className=' sm:flex  justify-between'>
+            <div>
+              <h2>{invoice?.id}</h2>
+              <p>{ invoice?.description}</p>
+            </div>
+            <div>
+              <p>{ invoice?.senderAddress.street}</p>
+              <p>{invoice?.senderAddress.city}</p>
+              <p>{invoice?.senderAddress.postCode}</p>
+              <p>{ invoice?.senderAddress.country}</p>
+            </div>
+          </div>
+          <div className='grid grid-cols-2 sm:grid-cols-3'>
+            <div>
+              <div>
+                <h5>Invoice Date</h5>
+                <p>{ invoice?.createdAt}</p>
+              </div>
+              <div>
+                <h5>Payment Due</h5>
+                <p>{invoice?.paymentDue }</p>
+              </div>
+            </div>
+            <div>
+              <h5>Bill To</h5>
+              <p>{invoice?.clientName}</p>
+              <p>{invoice?.clientAddress.street }</p>
+              <p>{invoice?.clientAddress.city }</p>
+              <p>{invoice?.clientAddress.postCode }</p>
+              <p>{invoice?.clientAddress.country }</p>
+              
+            </div>
+            <div>
+              <h5>Sent To</h5>
+              <p>{ invoice?.clientEmail}</p>
+            </div>
+          </div>
+
+          <aside>
+            <div className=' invisible sm:visible sm:flex sm:gap-4 sm:justify-between items-center mb-4'>
+              <h6>Item Name</h6>
+              <h6>Qty</h6>
+              <h6>Price</h6>
+              <h6>Total</h6>
+            </div>
+
+            {invoice?.items.map(i => (
+              <div className='mb-4'>
+                <div className=' flex  justify-between items-center gap-4'>
+                  <div>
+                    <p className=' w-full whitespace-nowrap'>{i.name}</p>
+                    <div>
+                    <p className='sm:invisible'> <span>{i.quantity}</span>x <span>&#8358;{i.price}</span></p>
+                    </div>
+                  </div>
+                  <p className=' hidden sm:block'>{ i.quantity}</p>
+                  <p className=' hidden sm:block'>&#8358;{i.price}</p>
+                  <p className=''>&#8358;{i.total}</p>
+
+                </div>
+              </div>
+            ))}
+            
+
+            <div className='px-4 flex justify-between py-5 dark:bg-custom-dark-blue-400'>
+              
+              <h3>Grand Toal</h3>
+              
+              <p>&#8358;{invoice?.total}</p>
+              
+            </div>
+            
+        </aside>
+        </aside>
+
       </article>
-      <footer className=' sm:hidden sticky bottom-0 px-4 py-7 w-full bg-custom-dark-purple'>
+      <footer className=' sm:hidden sticky bottom-0 px-4 py-7 w-full bg-custom-ligth-100 dark:bg-custom-dark-blue-100'>
         <aside className='flex flex-row flex-grow gap-5  items-center justify-around'>
               <Button type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
                 <span>Edit</span>
