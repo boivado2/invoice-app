@@ -1,16 +1,32 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from './common/Button'
+import { setHideIvoiceDetailPage, setEnableInvoiceForm } from './../app/ui';
+import arrowLeftSvg from '../assets/icon-arrow-left.svg'
 
 
 
 function InvoiceDetail() {
+  const dispatch = useDispatch()
   const invoice = useSelector(state => state.invoices.invoice)
-  console.log(invoice)
+  const invoiceDetailPage = useSelector(state => state.ui.invoiceDetailPage)
+
+  const handleInvoiceDetailPage = () => {
+    dispatch(setHideIvoiceDetailPage())
+  }
+
+  const handleEnableInvoiceForm = () => {
+    dispatch(setEnableInvoiceForm())
+  }
 
   return (
-    <section className=' h-full  w-full'>
+    <section className={`h-full  w-full ${invoiceDetailPage ? ' translate-x-0' :  'translate-x-[-130%] fixed'} transition-all `}>
       <article className='h-full container w-full mx-auto flex flex-col py-8 items-center px-4 sm:px-10 gap-6'>
+
+        <div className=' flex items-center gap-5 self-start cursor-pointer' onClick={handleInvoiceDetailPage}>
+          <img src={arrowLeftSvg} alt="" />
+          <p>Go back</p>
+        </div>
 
         <header className='flex w-full  flex-row items-center bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-10 py-8'>
           <aside className='flex flex-row flex-grow justify-between sm:justify-start gap-5 '>
@@ -19,7 +35,7 @@ function InvoiceDetail() {
           </aside>
 
           <aside className='flex-row flex-grow gap-5  items-center justify-end hidden sm:flex'>
-              <Button type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
+              <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
                 <span>Edit</span>
             </Button>
               <Button  styles=" bg-custom-ligth-red-100 rounded-full" >

@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { currentInvoiceSet } from '../app/invoices'
+import { setShowIvoiceDetailPage } from '../app/ui'
 import arrowRightSvg from '../assets/icon-arrow-right.svg'
 
 function Invoice({ invoice }) {
@@ -35,9 +36,14 @@ function Invoice({ invoice }) {
     }
   }
 
+  const handleInvoiceDetailPage = () => {
+    dispatch(currentInvoiceSet(invoice))
+    dispatch(setShowIvoiceDetailPage())
+  }
+  
   
   return (
-    <Link to={`/${invoice.id}`} onClick={() => dispatch(currentInvoiceSet(invoice))} className='grid grid-cols-2 sm:flex gap-2  sm:gap-5 dark:bg-custom-dark-blue-200 bg-custom-ligth-100 w-full px-4 md:px-8 py-4 rounded-lg my-4 items-center text-sm md:text-base cursor-pointer'>
+    <aside  onClick={handleInvoiceDetailPage} className='grid grid-cols-2 sm:flex gap-2  sm:gap-5 dark:bg-custom-dark-blue-200 bg-custom-ligth-100 w-full px-4 md:px-8 py-4 rounded-lg my-4 items-center text-sm md:text-base cursor-pointer transition-all '>
       <div className='py-2  px-2 w-full'>
         <p className=' text-custom-dark-blue-400 dark:text-custom-ligth-100 font-semibold'><span className=' text-custom-dark-purple'>#</span>{ invoice.id}</p>
       </div>
@@ -64,7 +70,7 @@ function Invoice({ invoice }) {
       <div className='hidden  sm:flex justify-end w-[20%]'>
       <img className='invisible sm:visible' src={arrowRightSvg} alt="" />
       </div>
-    </Link>
+    </aside>
   )
 }
 

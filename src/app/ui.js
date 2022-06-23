@@ -8,6 +8,7 @@ const uiSlice = createSlice({
     selectedDropItems: [],
     theme: JSON.parse(localStorage.getItem("theme")) ,
     modal: false,
+    invoiceDetailPage: false
   },
   reducers: {
     enableInvoiceForm: (ui, action) => { 
@@ -41,12 +42,20 @@ const uiSlice = createSlice({
       ui.modal = false
     },
 
+    showInvoiceDetailPage: (ui, action) => {
+      ui.invoiceDetailPage = true
+    },
+
+    hideInvoiceDetailPage: (ui, action) => {
+      ui.invoiceDetailPage = false
+    },
+
   }
 })
 
 
 
-export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal } = uiSlice.actions
+export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal, showInvoiceDetailPage, hideInvoiceDetailPage } = uiSlice.actions
 export default uiSlice.reducer
 
 // Action creators
@@ -65,6 +74,9 @@ export const darkModeDisable = () => (dispatch) => {
 export const dropDownSelected = (item) => selectDropDownList(item)
 export const setShowModal = () => showModal()
 export const setHideModal = () => hideModal()
+export const setShowIvoiceDetailPage = () => showInvoiceDetailPage()
+export const setHideIvoiceDetailPage = () => hideInvoiceDetailPage()
+
 
 
 
