@@ -6,9 +6,6 @@ import Header from './Header'
 import Overlay from './common/Overlay'
 import { disableOverlay, hideModal, setDisableInvoiceForm } from '../app/ui'
 import InvoiceDetail from './InvoiceDetail'
-import { getFilterByStatus } from '../app/invoices'
-import Modal from './common/Modal'
-import Button from './common/Button'
 
 function Home() {
   const dispatch = useDispatch()

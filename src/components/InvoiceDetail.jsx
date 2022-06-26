@@ -1,18 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from './common/Button'
-import { setHideIvoiceDetailPage, setEnableInvoiceForm, hideInvoiceDetailPage, enableOverlay, hideModal, disableOverlay, showModal } from './../app/ui';
+import { setHideIvoiceDetailPage, setEnableInvoiceForm, enableOverlay, hideModal, disableOverlay, showModal } from './../app/ui';
 import arrowLeftSvg from '../assets/icon-arrow-left.svg'
-import { deleteInvoice, updatePaymentStatus } from '../app/invoices';
+import { deleteInvoice, getSingleInvoice, updatePaymentStatus } from '../app/invoices';
 import Modal from './common/Modal';
-import Overlay from './common/Overlay';
 
 
 
 
 function InvoiceDetail() {
   const dispatch = useDispatch()
-  const invoice = useSelector(state => state.invoices.invoice)
+  const invoice = useSelector(getSingleInvoice())
   const modal = useSelector(state => state.ui.modal)
   const invoiceDetailPage = useSelector(state => state.ui.invoiceDetailPage)
 

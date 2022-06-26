@@ -1,9 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { currentInvoiceSet } from '../app/invoices'
+import { setSelectedInvoiceId } from '../app/invoices'
 import { setShowIvoiceDetailPage } from '../app/ui'
 import arrowRightSvg from '../assets/icon-arrow-right.svg'
-import getStatusColor from './util/getStatusColor'
 
 function Invoice({ invoice }) {
   
@@ -12,7 +11,7 @@ function Invoice({ invoice }) {
 
 
   const handleInvoiceDetailPage = () => {
-    dispatch(currentInvoiceSet(invoice))
+    dispatch(setSelectedInvoiceId(invoice.id))
     dispatch(setShowIvoiceDetailPage())
   }
   
