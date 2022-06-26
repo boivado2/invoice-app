@@ -22,7 +22,7 @@ function App() {
   }, [theme])
 
   return (
-    <div className={` ${invoiceForm ? 'fixed ': ''} flex flex-1 flex-col lg:flex-row dark:bg-custom-dark-blue-300 bg-custom-ligth-300 w-full h-full min-h-screen font-spartan`} >
+         <div className={` ${invoiceForm ? 'fixed ': ''} flex flex-1 flex-col lg:flex-row dark:bg-custom-dark-blue-300 bg-custom-ligth-300 w-full h-full min-h-screen font-spartan`} >
       <Navbar/>
       <Home />
 

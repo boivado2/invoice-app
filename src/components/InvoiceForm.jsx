@@ -4,7 +4,7 @@ import Button from './common/Button'
 import Input from './common/Input';
 import plusSvg from '../assets/icon-plus.svg'
 import deleteIcon from '../assets/icon-delete.svg'
-import { setDisableInvoiceForm } from '../app/ui';
+import { disableOverlay, setDisableInvoiceForm } from '../app/ui';
 import Select from './common/Select';
 import { addBug } from '../app/invoices';
 
@@ -48,6 +48,7 @@ function InvoiceForm() {
 
   const handleDisableInvoiceForm = () => {
     dispatch(setDisableInvoiceForm())
+    dispatch(disableOverlay())
   }
 
   const handleSubmit = (e) => {
@@ -111,7 +112,7 @@ function InvoiceForm() {
   
 
   return (
-    <section className={` ${invoiceForm ? ' visible' : "invisible"} absolute top-16 lg:top-0 lg:left-24 z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
+    <section className={` ${invoiceForm ? ' visible' : "invisible"} absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
       <div className=' h-full  pb-8'>
         <form onSubmit={handleSubmit} className='py-6 pb-7 h-full overflow-auto '>
           

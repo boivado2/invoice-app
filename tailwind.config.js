@@ -43,7 +43,10 @@ module.exports = {
         "custom-ligth-300": "#F2F2F2",
         "custom-dark-gray-100": "#888EB0",
        "custom-dark-gray-200": "#979797",
-        "custom-ligth-red-100" : "#EC5757"
+        "custom-ligth-red-100": "#EC5757",
+        "custom-ligth-green-100": "#33D69F",
+        "custom-orange": "#FF8F00",
+        "custom-ligth-gray-100": "#DFE3FA"
       },
       
       height: {

@@ -1,17 +1,15 @@
 import React from 'react'
 import Button from './Button'
 
-function Modal({heading, desc, button_one, button_two }) {
+function Modal({title, desc, children }) {
   return (
-    <div className='absolute m-auto top-1/2 left-1/2  h-56 w-96 bg-custom-ligth-200 flex flex-col z-[100] rounded-2xl p-5'>
+    <div className='fixed mx-5 transition-all  max-w-lg max-h-[180px] h-full bg-custom-ligth-200 flex flex-col z-50 rounded-2xl p-5 self-center'>
       <div>
-        <h2 className='text-lg lg:text-xl'>{ heading }</h2>
+        <h2 className='text-lg lg:text-xl'>{ title }</h2>
         <p className='text-md lg:text-lg'>{desc}</p>
       </div>
       <div className='flex justify-end'>
-        <Button title={button_one} styles="bg-custom-ligth-200"/>
-        <Button title={button_two} styles="bg-custom-ligth-red-100"/>
-
+         {children}
       </div>
     </div>
   )

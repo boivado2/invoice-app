@@ -8,6 +8,7 @@ const uiSlice = createSlice({
     selectedDropItems: [],
     theme: JSON.parse(localStorage.getItem("theme")) ,
     modal: false,
+    overlay:false,
     invoiceDetailPage: false
   },
   reducers: {
@@ -50,12 +51,19 @@ const uiSlice = createSlice({
       ui.invoiceDetailPage = false
     },
 
+    overlayEnable: (ui, action) => { 
+      ui.overlay = true
+    },
+    overlayDisable: (ui, action) => {
+      ui.overlay = false
+    }
+
   }
 })
 
 
 
-export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal, showInvoiceDetailPage, hideInvoiceDetailPage } = uiSlice.actions
+export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal, showInvoiceDetailPage, hideInvoiceDetailPage, overlayDisable, overlayEnable } = uiSlice.actions
 export default uiSlice.reducer
 
 // Action creators
@@ -76,6 +84,9 @@ export const setShowModal = () => showModal()
 export const setHideModal = () => hideModal()
 export const setShowIvoiceDetailPage = () => showInvoiceDetailPage()
 export const setHideIvoiceDetailPage = () => hideInvoiceDetailPage()
+export const enableOverlay = () => overlayEnable()
+export const disableOverlay = () => overlayDisable()
+
 
 
 

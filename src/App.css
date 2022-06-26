@@ -8,15 +8,33 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-
-#invoice_paid::after {
-  background-color: rgb(146, 207, 146);
+.invoice_box_paid {
+  background-color: #33D69F;
+}
+.invoice_box_pending {
+  background-color: #FF8F00;
 }
 
-#invoice_pending::after {
-  background-color:rgb(240, 202, 132) ;
+.invoice_box_draft {
+  background-color: #DFE3FA;
 }
 
-#invoice_draft::after {
-  background-color: #a6afe4;
+#invoice_paid {
+  background-color:rgba(151, 151, 151, 0.2);
+  color: #33D69F;
+  border-radius: 0.4rem;
+
+}
+
+#invoice_pending {
+  background-color:  rgba(222, 226, 250, 0.2) ; 
+  color: #FF8F00;
+  border-radius: 0.4rem;
+}
+
+#invoice_draft {
+  background-color: rgba(166, 175, 228,0.2);
+  color: #DFE3FA;
+  border-radius: 0.4rem;
+
 }
