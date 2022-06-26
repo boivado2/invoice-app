@@ -23,13 +23,11 @@ const invoiceSlice = createSlice({
     },
 
     invoiceDeleted: (invoices, action) => {
-      console.log("deleted", action.payload)
-
+    invoices.lists =  invoices.lists.filter( i => i.id !== action.payload)
     },
 
     SelectedinvoiceId: (invoices, action) => {
       invoices.invoice = action.payload
-      console.log(invoices.invoice === action.payload)
 
     }
   }

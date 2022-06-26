@@ -4,7 +4,7 @@ import Button from './common/Button'
 import Input from './common/Input';
 import plusSvg from '../assets/icon-plus.svg'
 import deleteIcon from '../assets/icon-delete.svg'
-import { disableOverlay, setDisableInvoiceForm } from '../app/ui';
+import { setDisableInvoiceForm } from '../app/ui';
 import Select from './common/Select';
 import { addBug } from '../app/invoices';
 
@@ -48,7 +48,6 @@ function InvoiceForm() {
 
   const handleDisableInvoiceForm = () => {
     dispatch(setDisableInvoiceForm())
-    dispatch(disableOverlay())
   }
 
   const handleSubmit = (e) => {

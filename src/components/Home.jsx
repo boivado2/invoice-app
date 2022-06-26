@@ -4,7 +4,7 @@ import Invoices from './Invoices'
 import InvoiceForm from './InvoiceForm'
 import Header from './Header'
 import Overlay from './common/Overlay'
-import { disableOverlay, hideModal, setDisableInvoiceForm } from '../app/ui'
+import {  hideModal, setDisableInvoiceForm } from '../app/ui'
 import InvoiceDetail from './InvoiceDetail'
 
 function Home() {
@@ -16,7 +16,6 @@ function Home() {
 
   const handleDisableInvoiceForm = () => {
     dispatch(setDisableInvoiceForm())
-    dispatch(disableOverlay())
     dispatch(hideModal())
   }
 

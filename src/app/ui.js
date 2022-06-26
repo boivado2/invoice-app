@@ -14,9 +14,11 @@ const uiSlice = createSlice({
   reducers: {
     enableInvoiceForm: (ui, action) => { 
       ui.invoiceForm = true
+      ui.overlay = true
     },
     disableInvoiceForm: (ui, action) => { 
       ui.invoiceForm = false
+      ui.overlay = false
     },
 
     showDropDownList: (ui, action) => {
@@ -38,9 +40,12 @@ const uiSlice = createSlice({
 
     showModal: (ui, action) => {
       ui.modal = true
+      ui.overlay = true
      },
     hideModal: (ui, action) => {
       ui.modal = false
+      ui.overlay = false
+
     },
 
     showInvoiceDetailPage: (ui, action) => {
@@ -51,19 +56,12 @@ const uiSlice = createSlice({
       ui.invoiceDetailPage = false
     },
 
-    overlayEnable: (ui, action) => { 
-      ui.overlay = true
-    },
-    overlayDisable: (ui, action) => {
-      ui.overlay = false
-    }
-
   }
 })
 
 
 
-export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal, showInvoiceDetailPage, hideInvoiceDetailPage, overlayDisable, overlayEnable } = uiSlice.actions
+export const {enableInvoiceForm, disableInvoiceForm, showDropDownList, hideDropDownList, enableDarkMode, disableDarkMode, selectDropDownList, showModal, hideModal, showInvoiceDetailPage, hideInvoiceDetailPage } = uiSlice.actions
 export default uiSlice.reducer
 
 // Action creators
@@ -84,8 +82,7 @@ export const setShowModal = () => showModal()
 export const setHideModal = () => hideModal()
 export const setShowIvoiceDetailPage = () => showInvoiceDetailPage()
 export const setHideIvoiceDetailPage = () => hideInvoiceDetailPage()
-export const enableOverlay = () => overlayEnable()
-export const disableOverlay = () => overlayDisable()
+
 
 
 

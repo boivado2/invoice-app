@@ -4,7 +4,7 @@ import DropDown from './common/DropDown'
 import Button from './common/Button'
 import plusSvg from '../assets/icon-plus.svg'
 import { getFilterByStatus } from '../app/invoices';
-import { enableOverlay, setEnableInvoiceForm } from '../app/ui'
+import {  setEnableInvoiceForm } from '../app/ui'
 
 
 
@@ -16,7 +16,6 @@ function Header() {
 
   const handleEnableInvoiceForm = () => {
     dispatch(setEnableInvoiceForm())
-    dispatch(enableOverlay())
   }
   const {length : count} = filterInvoice
   return (

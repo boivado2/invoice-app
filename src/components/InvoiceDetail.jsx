@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from './common/Button'
-import { setHideIvoiceDetailPage, setEnableInvoiceForm, enableOverlay, hideModal, disableOverlay, showModal } from './../app/ui';
+import { setHideIvoiceDetailPage, setEnableInvoiceForm, hideModal, showModal, hideInvoiceDetailPage } from './../app/ui';
 import arrowLeftSvg from '../assets/icon-arrow-left.svg'
 import { deleteInvoice, getSingleInvoice, updatePaymentStatus } from '../app/invoices';
 import Modal from './common/Modal';
@@ -21,27 +21,28 @@ function InvoiceDetail() {
 
   const handleEnableInvoiceForm = () => {
     dispatch(setEnableInvoiceForm())
-    dispatch(enableOverlay())
 
   }
 
-  const handleUpdateInvoiceStatus = (id) => {
-    dispatch(updatePaymentStatus(id))
+  const handleUpdateInvoiceStatus = () => {
+    dispatch(updatePaymentStatus(invoice.id))
 
   }
 
-  const hadnleDelete = () => {
-    dispatch(enableOverlay())
+  const hadnleModalDelete = () => {
     dispatch(showModal())
   }
 
   const hadnleDeleteInvoice = () => {
     dispatch(deleteInvoice(invoice.id))
+    dispatch(hideInvoiceDetailPage())
+    dispatch(hideModal())
+
+
   }
 
   const handleCancelModal = () => {
     dispatch(hideModal())
-    dispatch(disableOverlay())
   }
 
 
@@ -88,13 +89,13 @@ function InvoiceDetail() {
               <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
                 <span>Edit</span>
             </Button>
-              <Button onClick={hadnleDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
+              <Button onClick={hadnleModalDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
                 <span className=''>Delete</span>
               </Button>
 
             {invoice?.status !== 'paid' ?
               (
-                <Button type='button' onClick={() => handleUpdateInvoiceStatus(invoice.id)} styles={` ${invoice?.status === 'draft' ? 'cursor-not-allowed' : ""} bg-custom-dark-purple rounded-full `} >
+                <Button type='button' onClick={handleUpdateInvoiceStatus} styles={` ${invoice?.status === 'draft' ? 'cursor-not-allowed' : ""} bg-custom-dark-purple rounded-full `} >
               <span className=''>Mark as Paid</span>
                 </Button>
               )
@@ -186,7 +187,7 @@ function InvoiceDetail() {
               <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
                 <span>Edit</span>
             </Button>
-              <Button onClick={hadnleDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
+              <Button onClick={hadnleModalDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
                 <span className=''>Delete</span>
               </Button>
 
