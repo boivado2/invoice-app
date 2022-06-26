@@ -50,8 +50,10 @@ function InvoiceDetail() {
     <>
       {modal ?  
         <Modal title="Confirm Deleteion" desc={`Are you sure you want to delete invoice #${invoice.id}? This action cannot be undone.`}>
-        <Button type='button' onClick={handleCancelModal}>Cancel</Button>
-        <Button type='button' onClick={hadnleDeleteInvoice}>Delete</Button>
+          <div className='flex gap-4'>
+          <Button styles={`dark:bg-custom-dark-blue-200 bg-custom-ligth-200 text-custom-dark-blue-400 rounded-full`} type='button' onClick={handleCancelModal}>Cancel</Button>
+        <Button styles={`bg-custom-ligth-red-100 rounded-full text-custom-ligth-100`} type='button' onClick={hadnleDeleteInvoice}>Delete</Button>
+      </div>
         </Modal>
         :
         null
