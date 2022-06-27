@@ -6,6 +6,7 @@ import Header from './Header'
 import Overlay from './common/Overlay'
 import {  hideModal, setDisableInvoiceForm } from '../app/ui'
 import InvoiceDetail from './InvoiceDetail'
+import InvoiceFormik from './common/Formik'
 
 function Home() {
   const dispatch = useDispatch()
@@ -31,7 +32,8 @@ function Home() {
         <Invoices />
         </div>
       </main>
-      <InvoiceForm />
+      <InvoiceFormik/>
+      {/* <InvoiceForm /> */}
     </div>
   )
 }
