@@ -1,12 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Invoices from './Invoices'
-import InvoiceForm from './InvoiceForm'
+import InvoiceForm from './common/Formik'
 import Header from './Header'
 import Overlay from './common/Overlay'
 import {  hideModal, setDisableInvoiceForm } from '../app/ui'
 import InvoiceDetail from './InvoiceDetail'
-import InvoiceFormik from './common/Formik'
 
 function Home() {
   const dispatch = useDispatch()
@@ -32,8 +31,7 @@ function Home() {
         <Invoices />
         </div>
       </main>
-      <InvoiceFormik/>
-      {/* <InvoiceForm /> */}
+      <InvoiceForm visible={invoiceForm} />
     </div>
   )
 }

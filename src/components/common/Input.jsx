@@ -1,10 +1,39 @@
 import React from 'react'
+import {useFormikContext} from 'formik';
+import ErrorMessage from './ErrorMessage';
 
-function Input({label, name, type, value, style, onChange, readOnly}) {
+function Input({ label, name, type, style, readOnly, value, error, touch, index }) {
+  
+  const { errors, setFieldTouched, touched, setFieldValue, values } = useFormikContext()
+
+
   return (
     <div className={` flex flex-col w-full gap-3 my-3`}>
-      <label className='text-md' htmlFor={name}>{ label}</label>
-      <input readOnly={readOnly}  className={`${style}  px-3 lg:px-7 py-3 outline outline-custom-ligth-200 outline-[0.3px] text-base`} type={type} value={value} name={name} id={name} onChange={onChange}/>
+      <div className='flex justify-between'>
+
+        <label className='text-md' htmlFor={name}>{label}</label>
+        
+        <ErrorMessage style={`hidden md:block text-custom-ligth-red-100`} visible={touched[name] || touch} error={errors[name] || error} />
+        
+      </div>
+      <input
+       readOnly={readOnly} 
+       className={`${style}  px-3 lg:px-7 py-3 outline outline-custom-ligth-200 outline-[0.3px] text-base`}
+        type={type} 
+        value={value} 
+        name={name}
+        id={name}
+        onChange={(e) => {
+          if (name === `items.${index}.quantity`) {
+            let total = e.target.value * values.items[index].price
+            setFieldValue(`items.${index}.total`, total)
+          }
+          setFieldValue(name, e.target.value)
+        }
+        } onBlur={() => setFieldTouched(name)} />
+      
+      <ErrorMessage style={`md:hidden text-custom-ligth-red-100`} visible={touched[name] || touch} error={errors[name]|| error} />
+      
   </div>
   )
 }

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from './common/Button'
 import { setHideIvoiceDetailPage, setEnableInvoiceForm, hideModal, showModal, hideInvoiceDetailPage } from './../app/ui';
 import arrowLeftSvg from '../assets/icon-arrow-left.svg'
-import { deleteInvoice, getSingleInvoice, updatePaymentStatus } from '../app/invoices';
+import { addSelectedInvoice,  clearInvoiceId,  deleteInvoice, getSingleInvoice, updatePaymentStatus } from '../app/invoices';
 import Modal from './common/Modal';
 
 
@@ -15,11 +15,15 @@ function InvoiceDetail() {
   const modal = useSelector(state => state.ui.modal)
   const invoiceDetailPage = useSelector(state => state.ui.invoiceDetailPage)
 
+
+
   const handleInvoiceDetailPage = () => {
     dispatch(setHideIvoiceDetailPage())
+    dispatch(clearInvoiceId())
   }
 
   const handleEnableInvoiceForm = () => {
+   dispatch(addSelectedInvoice(invoice))
     dispatch(setEnableInvoiceForm())
 
   }
@@ -68,7 +72,7 @@ function InvoiceDetail() {
           <p className=' text-custom-dark-blue-400 dark:text-custom-ligth-100'>Go back</p>
         </div>
 
-        <header className='flex w-full  flex-row items-center bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-10 py-8 gap-8'>
+        <header className='flex w-full  flex-row items-center bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-6 py-8 gap-8'>
           <aside className='flex flex-row flex-grow justify-between items-center sm:justify-start gap-5 '>
             <h4 className=' text-custom-dark-gray-100 '>Status</h4>
 
@@ -142,7 +146,7 @@ function InvoiceDetail() {
             </div>
             <div className=''>
               <h5 className=' text-custom-dark-gray-100'>sent to</h5>
-              <p className=' my-3 text-custom-dark-blue-400 dark:text-custom-ligth-100 font-semibold'>{ invoice?.clientEmail}</p>
+              <p className=' my-3 text-custom-dark-blue-400 dark:text-custom-ligth-100 font-semibold break-all'>{ invoice?.clientEmail}</p>
             </div>
           </div>
 

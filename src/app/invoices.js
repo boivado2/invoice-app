@@ -1,18 +1,29 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
+import generateRandomId from '../components/util/generateRandomId'
+
 
 
 const invoiceSlice = createSlice({
   initialState: {
     lists: [],
-    invoice: null
+    invoiceId: null,
+    selectedInvoice: null,
+    isDraft: false
   },
   name: "invoices",
   reducers: {
     invoiceReceived: (invoices, action) => {
      invoices.lists = action.payload
     },
-    bugAdded: (invoices, action) => {
-      console.log(action.payload)
+    invoiceAdded: (invoices, action) => {
+      invoices.lists.push(action.payload)
+    },
+    invoiceUpdated: (invoices, action) => {
+      const index = invoices.lists.findIndex((i) => i.id === action.payload.id)
+      invoices.lists[index] = action.payload
+    },
+
+    invoiceDraftSaved: (invoices, action) => {
       invoices.lists.push(action.payload)
     },
 
@@ -27,22 +38,71 @@ const invoiceSlice = createSlice({
     },
 
     SelectedinvoiceId: (invoices, action) => {
-      invoices.invoice = action.payload
+      invoices.invoiceId = action.payload
+    },
 
+    invoiceIdCleared: (invoices, action) => {
+      invoices.invoiceId = ""
+    },
+    selectedInvoiceAdded: (invoices, action) => {
+      invoices.selectedInvoice = action.payload
+    },
+
+    selectedInvoiceRemoved: (invoices, action) => {
+      invoices.selectedInvoice = {}
+      
     }
   }
 })
 
 
 // action creators
-export const { invoiceReceived, bugAdded, SelectedinvoiceId, paymentStatusUpdated, invoiceDeleted } = invoiceSlice.actions
+export const { invoiceReceived, invoiceAdded, SelectedinvoiceId, paymentStatusUpdated, invoiceDeleted, selectedInvoiceAdded, selectedInvoiceRemoved,invoiceIdCleared, invoiceUpdated, invoiceDraftSaved } = invoiceSlice.actions
 
 // 
-export const loadBugs = (data) => invoiceReceived(data)
-export const addBug = (data) => bugAdded(data)
-export const setSelectedInvoiceId = (invoice) => SelectedinvoiceId(invoice)
+export const loadInvoice = (data) => invoiceReceived(data)
+
+export const addInvoice = (data) => (dispatch) => {
+  let invoice = {
+    ...data,
+    id: generateRandomId(),
+    status: "pending"
+  }
+  invoice.total = invoice.items.reduce((pre, cur) => pre + cur.total, 0) 
+  const newDate = new Date(invoice.createdAt)
+  const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+  invoice = { ...invoice, paymentDue: new Date(DueDate).toLocaleDateString() }
+  console.log(invoice)
+  dispatch(invoiceAdded(invoice))
+}
+
+export const updateInvoice = (data) => (dispatch) => {
+ let invoice = {...data}
+
+  invoice.total = invoice.items.reduce((pre, cur) => pre + cur.total, 0) 
+  const newDate = new Date(invoice.createdAt)
+  const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+  invoice = {...invoice, paymentDue : new Date(DueDate).toLocaleDateString()}
+  if (invoice.status === "draft") {
+    invoice.status = 'pending'
+  }
+  dispatch(invoiceUpdated(invoice))
+} 
+
+export const saveDraftInvoice = (data) => (dispatch) => {
+  let invoice = {
+    ...data,
+    status: "draft",
+    id: generateRandomId()
+  }
+  dispatch(invoiceDraftSaved(invoice))
+}
+export const setSelectedInvoiceId = (invoiceId) => SelectedinvoiceId(invoiceId)
 export const updatePaymentStatus = (id) => paymentStatusUpdated(id)
 export const deleteInvoice = (id) => invoiceDeleted(id)
+export const addSelectedInvoice = (invoice) => selectedInvoiceAdded(invoice)
+export const clearInvoiceId = () => invoiceIdCleared()
+export const removeSelectedInvoice = () => selectedInvoiceRemoved()
 
 export default invoiceSlice.reducer
 
@@ -52,7 +112,7 @@ export default invoiceSlice.reducer
 
 export const getSingleInvoice = () => createSelector(
   state => state.invoices,
-  (invoices) => invoices.lists.find((i) => i.id === invoices.invoice)
+  (invoices) => invoices.lists.find((i) => i.id === invoices.invoiceId)
 )
 
 export const  getFilterByStatus = (selectedStatus) => createSelector(

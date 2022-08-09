@@ -5,14 +5,14 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import { loadBugs } from './app/invoices';
+import { loadInvoice } from './app/invoices';
 import data from './data.json'
 
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-store.dispatch(loadBugs(data))
+store.dispatch(loadInvoice(data))
 
 root.render(
   <React.StrictMode>

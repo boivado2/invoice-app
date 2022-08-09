@@ -1,209 +1,273 @@
 import React from 'react'
-import { Formik, FieldArray } from 'formik'
+import { Formik } from 'formik'
+
 import { useDispatch, useSelector } from 'react-redux'
-import Button from './Button'
-import Input from './Input'
-import Select from './Select'
-import plusSvg from '../../assets/icon-plus.svg'
-import deleteIcon from '../../assets/icon-delete.svg'
-import { addBug } from '../../app/invoices';
-import { setDisableInvoiceForm } from '../../app/ui'
+
+
+import Button from '../common/Button'
+import Input from '../common/Input';
+
+import { setDisableInvoiceForm } from '../../app/ui';
+import Select from '../common/Select';
+import { addInvoice, getSingleInvoice, updateInvoice } from '../../app/invoices';
+import { initialFormValues, schemaObject, paymentTermsList } from '../util/validationSchema';
+import ItemsFieldArray from '../common/ItemsFieldArray';
+import FormikSaveButton from '../common/FormikSaveButton';
+import FormikDiscardButton from '../common/FormikDiscardButton';
+import FormikDraftButton from '../common/FormikDraftButton';
 
 
 
-const generateRandomId = () => {
-  return Math.random().toString(16).substring(5, 11).toLocaleUpperCase()
-}
 
-const formValues = {
+const mapToModelView = (data) => ({
   clientAddress: {
-    street: "",
-    postCode: "",
-    city: "",
-    country: "",
+    street: data?.clientAddress.street,
+    city: data?.clientAddress.city,
+    postCode: data?.clientAddress.postCode,
+    country: data?.clientAddress.country
   },
 
+  
   senderAddress: {
-    street: "",
-    postCode: "",
-    city: "",
-    country: "",
+    street: data?.senderAddress.street,
+    city: data?.senderAddress.city,
+    postCode: data?.senderAddress.postCode,
+    country: data?.senderAddress.country
   },
-
-  id:"",
-  clientName: "",
-  clientEmail: "",
-  paymentDue: '',
-  paymentTerms: "",
-  description: "",
-  status: "pending",
-  total: "",
-  items: [ ]
+  id: data?.id,
+  clientName: data?.clientName,
+  clientEmail: data?.clientEmail,
+  paymentDue: data?.paymentDue,
+  createdAt: data?.createdAt,
+  paymentTerms: data?.paymentTerms,
+  description: data?.description,
+  status:  data?.status,
+  total: data?.total,
+  items: data?.items,
     
-}
+})
 
 
 
 
 
-const paymentTermsList = [{ title: "Net 1 day", paymentTerms: 1 }, { title: "Net 7 days", paymentTerms: 7 }, { title: "Net 14 days", paymentTerms: 14 }, { title: "Net 30 days", paymentTerms: 30 }]
 
-function InvoiceFormik() {
+
+function InvoiceFormik({visible}) {
+
+
+
   const dispatch = useDispatch()
-  const invoiceForm = useSelector(state => state.ui.invoiceForm)
+  const invoice = useSelector(getSingleInvoice())
 
+  const selectedInvoice = mapToModelView(invoice)
 
-  const handleDisableInvoiceForm = () => {
-    dispatch(setDisableInvoiceForm())
+  const handleSubmit = (values, { resetForm }) => {
+    
+    console.log(values.description)
+    if (selectedInvoice.id) {
+      return dispatch(updateInvoice(values))
+
+    }
+    dispatch(addInvoice(values))
+    resetForm()
   }
 
+
+  if(!visible) return null
+
+  
+
   return (
-    <Formik initialValues={formValues} onSubmit={(values) => {
-      const invoice = { ...values, id: generateRandomId() }
-      invoice.total = invoice.items.reduce((pre, cur) => pre  + cur.total, 0)      
-      console.log(invoice)
-      dispatch(addBug(invoice))
-    }} >
+    <Formik
+    initialValues={ !invoice ?  initialFormValues : selectedInvoice  }
+    onSubmit={handleSubmit}
+    validationSchema={ schemaObject}
+    enableReinitialize={true}
+    >
 
-      {({ handleChange, handleSubmit,  values, setFieldValue }) => (
+      {({values, errors, touched}) => (
+        <>
+          <section className={` absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
+            <div className='pb-8 py-6 h-full overflow-auto '>      
+              
 
-          <section className={` ${invoiceForm ? ' visible' : "invisible"} absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
-          <div className=' h-full  pb-8 '>
-            <form className='py-6 h-full overflow-auto' onSubmit={handleSubmit}>
-            <fieldset className='grid grid-cols-2 gap-3 px-8'>
+
+              <fieldset className='grid grid-cols-2 md:grid-cols-3 gap-3 px-8'>
                 
+
                 <legend className=' text-xl py-5'>Bill From</legend>
                 
-                <div className='col-span-2'>
-                <Input onChange={handleChange} style={`col-span-2`} label="Street Address" name="senderAddress.street" type="text" value={values.senderAddress.street} />
-                </div>
-                
-                
-                <Input onChange={handleChange} style={``} label="City" name="senderAddress.city" type="text" value={values.senderAddress.city} />
-                
-                <Input onChange={handleChange} label="Post Code" name="senderAddress.postCode" type="text" value={values.senderAddress.postCode} />
-                <div className='col-span-2'>
-                <Input onChange={handleChange} style={``} label="Country" name="senderAddress.country" type="text" value={values.senderAddress.country} />
-                </div>
-                
-              </fieldset>
-              
 
-              <fieldset className='grid grid-cols-2 gap-3 mb-12 px-8 w-full'>
-                
-                <legend className='text-xl py-7'>Bill To</legend>
-
-                
-                <div className="col-span-2">
-                <Input onChange={handleChange} style={``} label="Client's Name" name="clientName" type="text" value={values.clientName} />
-                </div>
-                
-                <div className="col-span-2">
-                <Input onChange={handleChange} style={``} label="Client's Email" name="clientEmail" type="email" value={values.clientEmail} />
-
-                </div>
-
-                <div className="div col-span-2">
-                <Input onChange={handleChange} style={``} label="Street Address" name="clientAddress.street" type="text" value={values.clientAddress.street} />
-                </div>
-            
-                <Input onChange={handleChange} style={``} label="City" name="clientAddress.city" value={values.clientAddress.city} type="text" />
-                
-                <Input onChange={handleChange} label="Postal Code" name="clientAddress.postCode" type="text" value={values.clientAddress.postCode} />
-                
+                <div className='col-span-3'>
                   
-                <div className="col-span-2">
-                <Input onChange={handleChange} style={``} label="Country" name="clientAddress.country" type="text" value={values.clientAddress.country} />
+              
+                  <Input
+                    value={values.senderAddress.street}
+                    label="Street Address"
+                    name="senderAddress.street"
+                    error={errors.senderAddress?.street}
+                    touch={touched.senderAddress?.street}
+                  />
+            
                 </div>
+                
+
+
+                <Input
+                  value={values.senderAddress.city}
+                  label="City"
+                  name="senderAddress.city"
+                  error={errors.senderAddress?.city}
+                  touch={touched.senderAddress?.city}
+                />
+
+                <Input
+                  value={values.senderAddress.postCode}
+                  label="Post Code"
+                  name="senderAddress.postCode"
+                  error={errors.senderAddress?.postCode}
+                  touch={touched.senderAddress?.postCode}
+                />
 
                 <div className='col-span-2 md:col-span-1'>
-                <Input onChange={handleChange} style={` `} label="Invoice Date" name="paymentDue" type="date" value={values.paymentDue} />
+                  
+                  <Input
+                    value={values.senderAddress.country}
+                    label="Country"
+                    name="senderAddress.country"
+                    error={errors.senderAddress?.country}
+                    touch={touched.senderAddress?.country}
+                  />
 
                 </div>
-
-                <div className="col-span-2 md:col-span-1 w-full">
-                <Select value={values.paymentTerms} name="paymentTerms" label="Payment Terms" onChange={handleChange} items={paymentTermsList} styles={ ``}/>
-
-                </div>
-                            
-                <div className="col-span-2">
-                <Input onChange={handleChange} style={``} label="Project Description" name="description" type="text"  value={values.description} />
-
-                </div>
-
+                
+            
+          
               </fieldset>
+              
+
+
+
+
+          
+          <fieldset className='grid grid-cols-2 md:grid-cols-3 gap-3 px-8'>
 
             
-              <FieldArray name='items' >
-                {({ insert, push, remove }) => (
+            <legend className=' text-xl py-5'>Bill To</legend>
+            
+            <div className="col-span-3">
+              <Input  value={values.clientName} label="Name" name="clientName" />
+            </div>
 
-                  <fieldset className='flex flex-col justify-center px-8 mb-14'>
-                    
-                        <legend className='text-xl py-7'>Item List</legend> 
-                        {values.items.map((item, index) => (
-                          <aside className='grid grid-cols-5 md:grid-cols-6 gap-3 my-8 w-full' key={index}>
-                            <div className="col-span-5 md:col-span-2">
-                            <Input onChange={handleChange} style={`  px-2`} label="Item Name" name={`items.${index}.name`} type="text" value={item.name} />
-                            
-                            </div>
-                            
-                            <Input onChange={(e) => {
-                              handleChange(e)
-                              const total = e.target.value * item.price
-                              setFieldValue(`items.${index}.total`,total )
-                            }} style={`px-1 text-center`} label="Qty" name={`items.${index}.quantity`} type="number" value={item.quantity} />
-                            
-                            <div className='col-span-2 md:col-span-1'>
-                              <Input onChange={(e) => {
-                                handleChange(e)
-                                const total = e.target.value * item.quantity
-                                setFieldValue(`items.${index}.total`,total )
-                              }} style={`px-1 text-center`} label="Price" name={`items.${index}.price`} type="number" value={item.price} />
-                          </div>
-                            
-                            <Input readOnly={true} style={`px-1 text-center`} label="Total" name={`items.${index}.total`} type="tel" value={item.total} />
-                            
-                            <div onClick={() => remove(index)} className='p-3 md:px-6 md:py-3 flex items-end justify-center cursor-pointer'> <img className='w-7 h-7 md:w-8 md:h-10' src={deleteIcon} alt="" /></div>
 
-                            </aside>
-                        ))}
+            <div className="col-span-3">
+              <Input  value={values.clientEmail} label="Email" name="clientEmail" />
+            </div>
 
-                        <div onClick={() => push({ name: "",price: "",quantity: "",total: "" })} className='rounded-full bg-custom-ligth-200 py-3 px-5 text-center ' role="button"
-                        >
-                          <img className='inline-block' src={plusSvg} alt="" />
-                          <span className='text-lg pl-3'>Add New Item</span>
-                        </div>
-
-                  </fieldset>
-                )}
-            </FieldArray>
-              
-              
-              <aside className=' lg:absolute bottom-0 left-0 w-full   flex gap-3 justify-around  bg-white py-7 h-24'>
-                
-                <div className=' self-center'>
+          
+            <div className='col-span-3'>
                   
-                  <Button type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" onClick={handleDisableInvoiceForm} >
-                    <span>Discard</span>
-                  </Button>
-                  
-                </div>
-
-                
-                <div className=' flex gap-3'>
-                  <Button  styles="bg-custom-dark-blue-200 rounded-full" >
-                    <span className=''>Save as Draf</span>
-                  </Button>
-
-                  <Button styles="bg-custom-dark-purple rounded-full" >
-                    <span className=''>Save & Send</span>
-                  </Button>  
+              
+                  <Input
+                    value={values.clientAddress.street}
+                    label="Street Address"
+                    name="clientAddress.street"
+                    error={errors.clientAddress?.street}
+                    touch={touched.clientAddress?.street}
+                  />
+            
                 </div>
                 
-              </aside>
-            </form>
-          </div>
-        </section>      
+
+
+                <Input
+                  value={values.clientAddress.city}
+                  label="City"
+                  name="clientAddress.city"
+                  error={errors.clientAddress?.city}
+                  touch={touched.clientAddress?.city}
+                />
+
+                <Input
+                  value={values.clientAddress.postCode}
+                  label="Post Code"
+                  name="clientAddress.postCode"
+                  error={errors.clientAddress?.postCode}
+                  touch={touched.clientAddress?.postCode}
+                />
+
+                <div className='col-span-2 md:col-span-1'>
+                  
+                  <Input
+                    value={values.clientAddress.country}
+                    label="Country"
+                    name="clientAddress.country"
+                    error={errors.clientAddress?.country}
+                    touch={touched.clientAddress?.country}
+                  />
+
+                </div>
+
+            <div className=' col-span-3 grid grid-cols-1 md:grid-cols-2 gap-3 w-full'>
+                  <Input  value={values.createdAt} label="Invoice Date" name="createdAt" type="date" />  
+                  
+                  <Select  value={values.paymentTerms} name="paymentTerms" label="Payment Terms" items={paymentTermsList}/>
+                  
+            </div>
+            
+
+            <div className="col-span-3">
+                <Input  value={values.description}  label="Project Description" name="description" />
+
+                </div>
+
+          </fieldset>
+
+          <ItemsFieldArray />
+          
+          <aside className=' lg:absolute bottom-0 left-0 w-full   flex gap-3 justify-between  bg-white py-7 px-3 md:px-7 h-24'> 
+            
+            {
+              !invoice ?
+                <>
+                  <FormikDiscardButton title="Discard" />
+                  
+                  <div className='flex items-center gap-3 justify-center' >
+            
+                  <FormikSaveButton />
+                  
+                    <FormikDraftButton/>
+              
+                </div>
+                </>
+
+                :
+
+                <>
+                  <div></div>
+                  <div className='flex gap-3'>
+                  <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Cancel" />
+                  
+                  <FormikSaveButton />
+
+                </div>
+                  
+                </>
+
+
+            }
+            
+
+      
+
+          </aside>
+        
+      </div>  
+      </section>
+
+        </>
+            
       )}
       
    </Formik>
@@ -211,3 +275,5 @@ function InvoiceFormik() {
 }
 
 export default InvoiceFormik
+
+
