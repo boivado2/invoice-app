@@ -70,8 +70,8 @@ export const addInvoice = (data) => (dispatch) => {
   }
   invoice.total = invoice.items.reduce((pre, cur) => pre + cur.total, 0) 
   const newDate = new Date(invoice.createdAt)
-  const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
-  invoice = { ...invoice, paymentDue: new Date(DueDate).toLocaleDateString() }
+  const dueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+  invoice = { ...invoice, paymentDue: new Date(dueDate).toLocaleDateString() }
   console.log(invoice)
   dispatch(invoiceAdded(invoice))
 }
@@ -81,8 +81,8 @@ export const updateInvoice = (data) => (dispatch) => {
 
   invoice.total = invoice.items.reduce((pre, cur) => pre + cur.total, 0) 
   const newDate = new Date(invoice.createdAt)
-  const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
-  invoice = {...invoice, paymentDue : new Date(DueDate).toLocaleDateString()}
+  const dueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+  invoice = {...invoice, paymentDue : new Date(dueDate).toLocaleDateString()}
   if (invoice.status === "draft") {
     invoice.status = 'pending'
   }
@@ -98,8 +98,8 @@ export const saveDraftInvoice = (data) => (dispatch) => {
 
   if (invoice.createdAt !== "" && invoice.paymentTerms !== "") {
     const newDate = new Date(invoice.createdAt)
-    const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
-    invoice = {...invoice, paymentDue : new Date(DueDate).toLocaleDateString()}
+    const dueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+    invoice = {...invoice, paymentDue : new Date(dueDate).toLocaleDateString()}
   }
 
   dispatch(invoiceDraftSaved(invoice))
