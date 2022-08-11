@@ -87,7 +87,7 @@ function InvoiceFormik({visible}) {
       {({values, errors, touched}) => (
         <>
           <section className={` absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  dark:bg-custom-dark-blue-300 bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
-            <div className='pb-8 py-6 h-full overflow-auto'>      
+            <div className='pt-6 pb-3 h-full overflow-auto relative'>      
               
               <div className=' flex items-center gap-5 self-start cursor-pointer px-8 my-10 md:hidden' onClick={() => dispatch(setDisableInvoiceForm())}>
                 
@@ -239,13 +239,18 @@ function InvoiceFormik({visible}) {
 
           <ItemsFieldArray />
           
-          <aside className=' lg:absolute bottom-0 left-0 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100 bg-custom-ligth-300 py-7 px-3 md:px-7 h-24 mb-6'> 
-            
+          <aside className='fixed bottom-0 left-30 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100 sm:w-[600px] lg:w-[700px] bg-custom-ligth-300 pt-7 px-3 md:px-7 h-24 '> 
+                              <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Discard" />
+
             {
               !invoice ?
                 <>
-                  <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Discard" />
                   
+                      <div className='flex items-center justify-center'>
+                        <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Discard" />
+                        
+                      </div>
+                      
                   <div className='flex items-center gap-3 justify-center' >
             
                   
@@ -261,7 +266,7 @@ function InvoiceFormik({visible}) {
 
                 <>
                   <div></div>
-                  <div className='flex gap-3'>
+                  <div className='flex gap-3 items-center justify-center'>
                   <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Cancel" />
                   
                   <FormikSaveButton title="Save Changes" />

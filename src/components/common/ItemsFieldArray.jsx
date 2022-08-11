@@ -26,11 +26,11 @@ function ItemsFieldArray() {
     <>
         <FieldArray  name='items'>
         {({ push, remove }) => (
-          <fieldset className='flex flex-col justify-center px-8 mb-14'>
+          <fieldset className='flex flex-col justify-center px-8 mb-36'>
             <legend className='text-xl py-7 text-custom-dark-blue-300 dark:text-custom-ligth-200'>Item List</legend> 
             {
               values.items.map((item, index) => (
-                <aside className='grid grid-cols-4 md:grid-cols-6 gap-3 my-8 w-full' key={index}> 
+                <aside className='grid grid-cols-4 md:grid-cols-6 gap-3 my-5 w-full' key={index}> 
                   <div className='col-span-4 md:col-span-2'>
                   <Input style={`px-2`} label="Item Name" name={`items[${index}].name`} value={item.name} />
                   </div>
