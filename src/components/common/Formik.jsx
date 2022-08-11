@@ -15,7 +15,7 @@ import ItemsFieldArray from '../common/ItemsFieldArray';
 import FormikSaveButton from '../common/FormikSaveButton';
 import FormikDiscardButton from '../common/FormikDiscardButton';
 import FormikDraftButton from '../common/FormikDraftButton';
-
+import arrowLeftSvg from '../../assets/icon-arrow-left.svg'
 
 
 
@@ -88,7 +88,22 @@ function InvoiceFormik({visible}) {
       {({values, errors, touched}) => (
         <>
           <section className={` absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  dark:bg-custom-dark-blue-300 bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
-            <div className='pb-8 py-6 h-full overflow-auto '>      
+            <div className='pb-8 py-6 h-full overflow-auto'>      
+              
+              <div className=' flex items-center gap-5 self-start cursor-pointer px-8 my-10 md:hidden' onClick={() => dispatch(setDisableInvoiceForm())}>
+                
+                <img src={arrowLeftSvg} alt="" />
+                
+                <p className=' text-custom-dark-blue-400 dark:text-custom-ligth-100'>Go back</p>
+                
+              </div>              
+
+              {selectedInvoice.id
+                ?
+                <h1 className='px-8 text-2xl my-11'>Edit <span className=' text-custom-dark-purple'>#</span>{selectedInvoice.id}</h1>
+                :
+                <h1 className='px-8 text-2xl my-11'>New Invoice</h1>
+              }
               
 
 
