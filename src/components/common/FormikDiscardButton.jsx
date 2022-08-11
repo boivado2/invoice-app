@@ -17,7 +17,7 @@ function FormikDiscardButton({ title, disableForm }) {
     resetForm()
   }
   return (
-    <Button type='submit'  styles={`bg-custom-dark-blue-200 rounded-full`}  onClick={handleClick} >
+    <Button type='submit'  styles={`bg-custom-dark-blue-200 dark:bg-custom-ligth-300 rounded-full text-custom-ligth-200 dark:text-custom-dark-blue-200`}  onClick={handleClick} >
       {title}
     </Button>
 

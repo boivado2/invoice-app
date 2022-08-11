@@ -18,7 +18,7 @@ function FormikDraftButton({ title, disableForm }) {
     resetForm()
   }
   return (
-    <Button type='submit'  styles={`bg-custom-dark-blue-200 rounded-full`}  onClick={handleClick} >
+    <Button type='submit'  styles={`bg-custom-dark-blue-400 dark:bg-custom-dark-blue-200 rounded-full text-custom-ligth-200`}  onClick={handleClick} >
       {title || 'Save as Draft'}
     </Button>
 

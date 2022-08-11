@@ -27,7 +27,7 @@ function ItemsFieldArray() {
         <FieldArray  name='items'>
         {({ push, remove }) => (
           <fieldset className='flex flex-col justify-center px-8 mb-14'>
-            <legend className='text-xl py-7'>Item List</legend> 
+            <legend className='text-xl py-7 text-custom-dark-blue-300 dark:text-custom-ligth-200'>Item List</legend> 
             {
               values.items.map((item, index) => (
                 <aside className='grid grid-cols-4 md:grid-cols-6 gap-3 my-8 w-full' key={index}> 
@@ -40,7 +40,7 @@ function ItemsFieldArray() {
                   <Input type="number" style={`px-1`} index={index} label="Quantity" name={`items.${index}.quantity`} value={item.quantity} />
 
          
-                  <Input type="number" style={`px-1`} label="Total" name={`items.${index}.total`} value={item.total} />
+                  <Input readOnly={true} style={`px-1`} label="Total" name={`items.${index}.total`} value={item.total} />
                   
                   <div onClick={() => remove(index)} className='p-3 md:px-6 md:py-3 flex items-end justify-center cursor-pointer'> <img className='w-7 h-7 md:w-8 md:h-10' src={deleteIcon} alt="" /></div>
 
@@ -49,7 +49,7 @@ function ItemsFieldArray() {
               ))}
             
             
-            <div onClick={() => push(item)} className='rounded-full bg-custom-ligth-200 py-3 px-5 text-center ' role="button">
+            <div onClick={() => push(item)} className='rounded-full dark:text-custom-ligth-200 text-custom-dark-blue-300 py-3 px-5 text-center dark:bg-custom-dark-blue-100 bg-custom-ligth-300 ' role="button">
 
               <img className='inline-block' src={plusSvg} alt="" />
               

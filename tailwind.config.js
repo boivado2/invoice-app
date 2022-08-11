@@ -38,6 +38,7 @@ module.exports = {
         "custom-dark-blue-300": "#141625",
         "custom-dark-blue-400": "#0C0E16",
         "custom-dark-purple": "#7C5DFA",
+        "custom-ligth-purple": "#9277FF",
         "custom-ligth-100": "#F8F8FB",
         "custom-ligth-200": "#DFE3FA",
         "custom-ligth-300": "#F2F2F2",
