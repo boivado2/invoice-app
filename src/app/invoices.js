@@ -72,7 +72,6 @@ export const addInvoice = (data) => (dispatch) => {
   const newDate = new Date(invoice.createdAt)
   const dueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
   invoice = { ...invoice, paymentDue: new Date(dueDate).toLocaleDateString() }
-  console.log(invoice)
   dispatch(invoiceAdded(invoice))
 }
 

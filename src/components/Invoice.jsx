@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedInvoiceId } from '../app/invoices'
 import { setShowIvoiceDetailPage } from '../app/ui'
 import arrowRightSvg from '../assets/icon-arrow-right.svg'
@@ -7,7 +7,8 @@ import arrowRightSvg from '../assets/icon-arrow-right.svg'
 function Invoice({ invoice }) {
   
   const dispatch = useDispatch()
-
+  const theme = useSelector(state => state.ui.theme)
+  
 
 
   const handleInvoiceDetailPage = () => {
@@ -32,9 +33,10 @@ function Invoice({ invoice }) {
       </div>
 
       <div className='w-full flex justify-end  items-center md:justify-start flex-grow-0'>
-        <div className={` relative flex  sm:w-full justify-center items-center  py-3 px-4  w-full rounded-lg gap-4 max-w-[120px] sm:mx-auto`} id={`invoice_${invoice.status}`}>
+        <div className={` relative flex  sm:w-full justify-center items-center  py-3 px-4  w-full rounded-lg gap-4 max-w-[120px]   sm:mx-auto   ${theme ? `invoice_dark_${invoice.status}` : `invoice_${invoice.status}`}`} >
 
-        <span className={`p-1 inline-block  rounded-full invoice_box_${invoice.status}`} role="cell"></span>
+          <span className={`p-1 inline-block  rounded-full ${theme ?  `invoice_box_dark_${invoice.status}` : `invoice_box_${invoice.status}`}`} role="cell"></span>
+          
           <p className={``}>
           {invoice.status}
         </p>

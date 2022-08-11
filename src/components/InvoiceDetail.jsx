@@ -12,6 +12,7 @@ import Modal from './common/Modal';
 function InvoiceDetail() {
   const dispatch = useDispatch()
   const invoice = useSelector(getSingleInvoice())
+  const theme = useSelector(state => state.ui.theme)
   const modal = useSelector(state => state.ui.modal)
   const invoiceDetailPage = useSelector(state => state.ui.invoiceDetailPage)
 
@@ -76,9 +77,11 @@ function InvoiceDetail() {
           <aside className='flex flex-row flex-grow justify-between items-center sm:justify-start gap-5 '>
             <h4 className=' text-custom-dark-gray-100 '>Status</h4>
 
-            <div className='relative   flex justify-center items-center px-2'>
-              <div className={` relative flex  sm:w-full justify-center items-center  py-3 px-4  w-full rounded-lg gap-4 max-w-[120px] sm:mx-auto`} id={`invoice_${invoice?.status}`}>
-                <span className={`p-1 inline-block  rounded-full invoice_box_${invoice?.status}`} role="cell"></span>
+              <div className='relative   flex justify-center items-center px-2'>
+                
+                <div className={` relative flex  sm:w-full justify-center items-center  py-3 px-4  w-full rounded-lg gap-4 max-w-[120px] sm:mx-auto ${theme ? ` invoice_dark_${invoice?.status}` : ` invoice_${invoice?.status}`}`}>
+                  
+                <span className={`p-1 inline-block  rounded-full ${theme ? `invoice_box_dark_${invoice?.status}` : `invoice_box_${invoice?.status}`} `} role="cell"></span>
                 
                 <p className={``}>
                   

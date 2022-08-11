@@ -4,7 +4,6 @@ import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-import Button from '../common/Button'
 import Input from '../common/Input';
 
 import { setDisableInvoiceForm } from '../../app/ui';
@@ -100,9 +99,9 @@ function InvoiceFormik({visible}) {
 
               {selectedInvoice.id
                 ?
-                <h1 className='px-8 text-2xl my-11'>Edit <span className=' text-custom-dark-purple'>#</span>{selectedInvoice.id}</h1>
+                <h1 className='px-8 text-2xl my-11 text-custom-dark-blue-400 dark:text-custom-ligth-200'>Edit <span className=' text-custom-dark-purple'>#</span>{selectedInvoice.id}</h1>
                 :
-                <h1 className='px-8 text-2xl my-11'>New Invoice</h1>
+                <h1 className='px-8 text-2xl my-11 text-custom-dark-blue-400 dark:text-custom-ligth-200'>New Invoice</h1>
               }
               
 
