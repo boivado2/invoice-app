@@ -95,6 +95,13 @@ export const saveDraftInvoice = (data) => (dispatch) => {
     status: "draft",
     id: generateRandomId()
   }
+
+  if (invoice.createdAt !== "" && invoice.paymentTerms !== "") {
+    const newDate = new Date(invoice.createdAt)
+    const DueDate = newDate.setDate(newDate.getDate() + parseInt(invoice.paymentTerms))
+    invoice = {...invoice, paymentDue : new Date(DueDate).toLocaleDateString()}
+  }
+
   dispatch(invoiceDraftSaved(invoice))
 }
 export const setSelectedInvoiceId = (invoiceId) => SelectedinvoiceId(invoiceId)
