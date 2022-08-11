@@ -3,11 +3,10 @@ import React from 'react'
 import Button from './Button';
 import { useFormikContext } from 'formik';
 import { useDispatch } from 'react-redux';
-import { initialFormValues } from '../util/validationSchema';
 
 function FormikDiscardButton({ title, disableForm }) {
   
-  const { resetForm, setFormikState } = useFormikContext()
+  const { resetForm } = useFormikContext()
   const dispatch = useDispatch()
   
   const handleClick = () => {
