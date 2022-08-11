@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
-import {  useSelector } from 'react-redux';
-import { getFilterByStatus } from '../app/invoices';
+import {  useSelector, useDispatch } from 'react-redux';
+import { getFilterByStatus, loadInvoice } from '../app/invoices';
 import Invoice from './Invoice';
 import NoInvoice from './NoInvoice';
+import data from '../data.json'
 
 
 function Invoices() {
-  // const invoices = useSelector(state => state.invoices.lists)
+  const dispatch = useDispatch()
   const selectedDropItems = useSelector(state => state.ui.selectedDropItems)
   const filterInvoice = useSelector(getFilterByStatus(selectedDropItems))
 
   useEffect(() => {
+    dispatch(loadInvoice(data))
   }, [])
 
   if (filterInvoice.length === 0) return  <NoInvoice />
