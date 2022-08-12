@@ -63,7 +63,7 @@ function InvoiceDetail() {
         :
         null
       }
-    <section className={`h-full  w-full ${invoiceDetailPage ? ' translate-x-0' : 'translate-x-[-130%] fixed'} transition-all flex flex-col justify-center items-center `}>
+    <section className={`h-full mb-24 w-full ${invoiceDetailPage ? ' translate-x-0' : 'translate-x-[-130%] fixed'} transition-all flex flex-col justify-center items-center `}>
   
 
       <article className='h-full container w-full mx-auto flex flex-col py-8 items-center px-4 sm:px-10 gap-6'>
@@ -116,7 +116,7 @@ function InvoiceDetail() {
         <aside className='flex flex-col h-full w-full bg-custom-ligth-100 dark:bg-custom-dark-blue-200 px-4 sm:px-10 py-8 gap-5'>
           <div className='flex flex-col sm:flex-row  justify-between gap-4'>
             <div>
-              <h2 className='text-custom-dark-blue-400 dark:text-custom-ligth-100 font-semibold'>{invoice?.id}</h2>
+              <h2 className='text-custom-dark-blue-400 dark:text-custom-ligth-100 font-semibold'><span className=' text-custom-dark-purple'>#</span>{invoice?.id}</h2>
               <p className=' text-custom-dark-gray-100'>{ invoice?.description}</p>
             </div>
 
@@ -191,7 +191,10 @@ function InvoiceDetail() {
         </aside>
 
       </article>
-      <footer className=' sm:hidden sticky bottom-0 px-4 py-7 w-full bg-custom-ligth-100 dark:bg-custom-dark-blue-100'>
+
+      </section>
+
+      <footer className={` sm:hidden fixed bottom-0 px-4 py-7 w-full bg-custom-ligth-100 dark:bg-custom-dark-blue-100 ${invoiceDetailPage ? ' translate-x-0' : 'translate-x-[-130%] fixed'} transition-all`}>
         <aside className='flex flex-row flex-grow gap-5  items-center justify-around'>
               <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
                 <span>Edit</span>
@@ -200,12 +203,17 @@ function InvoiceDetail() {
                 <span className=''>Delete</span>
               </Button>
 
-              <Button onClick={handleUpdateInvoiceStatus} styles="bg-custom-dark-purple rounded-full" >
-                 <span className=''>Mark as Paid</span>
-              </Button>  
+          {invoice?.status !== 'paid' 
+            ?
+            <Button onClick={handleUpdateInvoiceStatus} styles="bg-custom-dark-purple rounded-full" >
+            <span className=''>Mark as Paid</span>
+            </Button>
+            :
+            null
+         }
+          
           </aside>
         </footer>
-      </section>
       </>
   )
 }

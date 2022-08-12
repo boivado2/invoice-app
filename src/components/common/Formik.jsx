@@ -240,8 +240,7 @@ function InvoiceFormik({visible}) {
           <ItemsFieldArray />
           
           <aside className='fixed bottom-0 left-30 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100 sm:w-[600px] lg:w-[700px] bg-custom-ligth-300 pt-7 px-3 md:px-7 h-24 '> 
-                              <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Discard" />
-
+            
             {
               !invoice ?
                 <>
