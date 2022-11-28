@@ -61,18 +61,20 @@ function InvoiceFormik({visible}) {
 
   const selectedInvoice = mapToModelView(invoice)
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = (values, {resetForm}) => {
     
     if (selectedInvoice.id) {
-      return dispatch(updateInvoice(values))
+      dispatch(updateInvoice(values))
+
+    } else {
+      dispatch(addInvoice(values))
 
     }
-    dispatch(addInvoice(values))
+
     resetForm()
   }
 
 
-  if(!visible) return null
 
   
 
@@ -86,7 +88,7 @@ function InvoiceFormik({visible}) {
 
       {({values, errors, touched}) => (
         <>
-          <section className={` absolute top-16 lg:top-0  z-30 h-full overflow-y-hidden  dark:bg-custom-dark-blue-300 bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
+          <section className={`${visible ? ' translate-x-0' : 'translate-x-[-130%]'} absolute top-16 lg:top-0 transition-all  z-30 h-full overflow-y-hidden  dark:bg-custom-dark-blue-300 bg-custom-ligth-100 rounded-r-3xl w-full sm:w-[600px] lg:w-[700px]`}>
             <div className='pt-6 pb-3 h-full overflow-auto relative'>      
               
               <div className=' flex items-center gap-5 self-start cursor-pointer px-8 my-10 md:hidden' onClick={() => dispatch(setDisableInvoiceForm())}>
@@ -237,9 +239,60 @@ function InvoiceFormik({visible}) {
 
           </fieldset>
 
-          <ItemsFieldArray />
+              <ItemsFieldArray />
+              
           
-          <aside className='fixed bottom-0 left-30 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100 sm:w-[600px] lg:w-[700px] bg-custom-ligth-300 pt-7 px-3 md:px-7 h-24 '> 
+              
+              
+          <aside className='relative bottom-14 md:bottom-0 left-0 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100 z-30 bg-custom-ligth-300 pt-7 px-3 md:px-7 h-24'> 
+            
+            {
+              !invoice ?
+                <>
+                  
+                      <div className='flex items-center justify-center'>
+                        <FormikDiscardButton  title="Discard" />
+                        
+                      </div>
+                      
+                  <div className='flex items-center gap-3 justify-center' >
+            
+                  
+                        <FormikDraftButton />
+                        
+                        <FormikSaveButton title="Save & Send"/>
+
+              
+                </div>
+                </>
+
+                :
+
+                <>
+                  <div></div>
+                  <div className='flex gap-3 items-center justify-center'>
+                  <FormikDiscardButton disableForm={setDisableInvoiceForm} title="Cancel" />
+                  
+                  <FormikSaveButton title="Save Changes" />
+
+                </div>
+                  
+                </>
+
+
+            }
+            
+
+      
+
+          </aside>
+
+
+
+            </div>  
+
+                
+            {/* <aside className='absolute bottom-14 md:bottom-0 left-0 w-full   flex gap-3 justify-between  dark:bg-custom-dark-blue-100  bg-custom-ligth-300 pt-7 px-3 md:px-7 h-24'> 
             
             {
               !invoice ?
@@ -280,11 +333,13 @@ function InvoiceFormik({visible}) {
 
       
 
-          </aside>
-        
-      </div>  
-      </section>
+          </aside> */}
 
+                    
+          </section>
+          
+          
+          
         </>
             
       )}

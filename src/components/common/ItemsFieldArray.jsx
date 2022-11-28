@@ -26,7 +26,7 @@ function ItemsFieldArray() {
     <>
         <FieldArray  name='items'>
         {({ push, remove }) => (
-          <fieldset className='flex flex-col justify-center px-8 mb-36'>
+          <fieldset className='flex flex-col justify-center px-8 mb-36 md:mb-4'>
             <legend className='text-xl py-7 text-custom-dark-blue-300 dark:text-custom-ligth-200'>Item List</legend> 
             {
               values.items.map((item, index) => (

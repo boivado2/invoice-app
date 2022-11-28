@@ -4,9 +4,10 @@ import Button from './Button';
 import { useFormikContext } from 'formik';
 
 function FormikSaveButton({title}) {
-  const {handleSubmit} = useFormikContext()
+  const { handleSubmit } = useFormikContext()
+  
   return (
-    <Button type='submit' styles="bg-custom-dark-purple dark:bg-custom-ligth-purple rounded-full text-custom-ligth-200" onClick={handleSubmit} >
+    <Button  type='submit' styles="bg-custom-dark-purple dark:bg-custom-ligth-purple rounded-full text-custom-ligth-200" onClick={handleSubmit} >
      {title}
     </Button>
   )

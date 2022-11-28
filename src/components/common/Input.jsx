@@ -13,7 +13,7 @@ function Input({ label, name, type, style, readOnly, value, error, touch, index 
 
         <label className={`text-md  ${error || errors[name] ? ' text-custom-ligth-red-100' : "dark:text-custom-ligth-200 text-custom-dark-blue-300"}`} htmlFor={name}>{label}</label>
         
-        <ErrorMessage style={`hidden md:block text-custom-ligth-red-100`} visible={touched[name] || touch} error={errors[name] || error} />
+        <ErrorMessage style={`hidden md:block text-custom-ligth-red-100`} visible={errors[name]} error={errors[name] || error} />
         
       </div>
       <input
