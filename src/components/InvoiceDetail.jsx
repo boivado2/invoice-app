@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Button from './common/Button'
 import { setHideIvoiceDetailPage, setEnableInvoiceForm, hideModal, showModal, hideInvoiceDetailPage } from './../app/ui';
+import { useAuth0 } from '@auth0/auth0-react'
 import arrowLeftSvg from '../assets/icon-arrow-left.svg'
 import { addSelectedInvoice,  clearInvoiceId,  deleteInvoice, getSingleInvoice, updatePaymentStatus } from '../app/invoices';
 import Modal from './common/Modal';
@@ -15,6 +16,7 @@ function InvoiceDetail() {
   const theme = useSelector(state => state.ui.theme)
   const modal = useSelector(state => state.ui.modal)
   const invoiceDetailPage = useSelector(state => state.ui.invoiceDetailPage)
+  const {user} = useAuth0()
 
 
 
@@ -95,14 +97,24 @@ function InvoiceDetail() {
           </aside>
 
           <aside className='flex-row flex-grow gap-5  items-center justify-end hidden sm:flex '>
-              <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
-                <span>Edit</span>
-            </Button>
-              <Button onClick={hadnleModalDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
-                <span className=''>Delete</span>
-              </Button>
 
-            {invoice?.status !== 'paid' ?
+              {
+                user ? (
+                  <>
+                      <Button onClick={handleEnableInvoiceForm} type="button" styles=" rounded-full bg-custom-ligth-200 text-sm" >
+                      <span>Edit</span>
+                      
+                    </Button>
+                    
+
+                <Button onClick={hadnleModalDelete}  styles=" bg-custom-ligth-red-100 rounded-full" >
+                  <span className=''>Delete</span>
+                </Button>
+                  </>
+                ) : null
+              }
+
+            {invoice?.status !== 'paid' && user ?
               (
                 <Button type='button' onClick={handleUpdateInvoiceStatus} styles={` ${invoice?.status === 'draft' ? 'cursor-not-allowed' : ""} bg-custom-dark-purple rounded-full `} >
               <span className=''>Mark as Paid</span>

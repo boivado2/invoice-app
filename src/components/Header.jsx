@@ -28,10 +28,12 @@ function Header() {
     </div>
     <div className='flex gap-2'>
       <DropDown title="Filter" bTitle="Filter by Status"/>
-      <Button type='button' styles="bg-custom-dark-purple rounded-full" icon={plusSvg} iconAlt="plus icon for showing form" onClick={handleEnableInvoiceForm}>
-        <span className='hidden sm:block text-custom-ligth-100 '>New Invoice</span>
-        <span className=' sm:hidden text-custom-ligth-100'>New</span>
-      </Button>
+            
+              <Button type='button' styles="bg-custom-dark-purple rounded-full" icon={plusSvg} iconAlt="plus icon for showing form" onClick={handleEnableInvoiceForm}>
+              <span className='hidden sm:block text-custom-ligth-100 '>New Invoice</span>
+              <span className=' sm:hidden text-custom-ligth-100'>New</span>
+            </Button>
+            
     </div>
   </header>
   )

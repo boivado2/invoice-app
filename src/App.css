@@ -47,3 +47,20 @@
 .invoice_dark_draft {
   color:#DFE3FA;
 }
+
+.auth-btn:hover #login-title {
+
+  visibility: visible;
+}
+
+
+.auth-btn:hover #logout-title {
+
+  visibility: visible;
+}
+
+
+#login-title, #logout-title {
+  visibility: hidden;
+  display: block;
+}

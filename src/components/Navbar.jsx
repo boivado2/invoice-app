@@ -43,8 +43,9 @@ function Navbar() {
         {isAuthenticated ?
         (
         <LogoutButton>
-          <img className='w-10 h-10 rounded-[100%]' src={user ? user.picture : avatar} alt={user.name} />
-          
+              <img className='w-10 h-10 rounded-[100%] flex-grow' src={user ? user.picture : avatar} alt={user.name} />
+              <span id='logout-title' className=' text-sm font-semibold text-white  py-2'>Logout</span>
+              
         </LogoutButton>
 
           )
@@ -52,8 +53,8 @@ function Navbar() {
         (
         
         <LoginButton>
-        <img className='w-10 h-10 rounded-[100%]' src={avatar} alt= "user-avatar" />
-
+        <img className='w-10 flex-grow h-10 rounded-[100%]' src={avatar} alt= "user-avatar" />
+          <span id='login-title' className=' text-sm font-semibold text-white py-2'>Login</span>
         </LoginButton>
           )
         }
