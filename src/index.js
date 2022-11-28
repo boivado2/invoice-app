@@ -16,15 +16,16 @@ const domain = process.env.REACT_APP_DOMAIN
 const clientId = process.env.REACT_APP_CLIENTID
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <Auth0Provider
         domain={domain}
         clientId={clientId}
         redirectUri={window.location.origin}
-      >
+    >
+      <Provider store={store}>
         <App />
+      </Provider>
+
       </Auth0Provider>
-    </Provider>
   </React.StrictMode>
 );
 
